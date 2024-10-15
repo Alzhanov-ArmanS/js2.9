@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счетчик и Валидация Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Счетчик нажатий на кнопку</h1>
+    <button id="clickButton">Нажми меня</button>
+    <p>Количество нажатий: <span id="clickCount">0</span></p>
+
+    <h2>Валидация Email</h2>
+    <form id="emailForm">
+        <input type="email" id="emailInput" placeholder="Введите email" required>
+        <button type="submit" id="submitButton" disabled>Отправить</button>
+        <p id="error-message"></p>
+    </form>
+
+    <h2>Таймер</h2>
+    <p>Количество секунд с момента загрузки страницы: <span id="timer">0</span></p>
+
+    <script>
+        // Счетчик нажатий на кнопку
+        let count = 0;
+        const clickButton = document.getElementById('clickButton');
+        const clickCountDisplay = document.getElementById('clickCount');
+
+        clickButton.addEventListener('click', () => {
+            count++;
+            clickCountDisplay.textContent = count;
+        });
+
+        // Валидация email
+        const emailInput = document.getElementById('emailInput');
+        const submitButton = document.getElementById('submitButton');
+        const errorMessage = document.getElementById('error-message');
+
+        emailInput.addEventListener('input', () => {
+            const email = emailInput.value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailPattern.test(email)) {
+                errorMessage.textContent = '';
+                submitButton.disabled = false;
+            } else {
+                errorMessage.textContent = 'Некорректный email';
+                submitButton.disabled = true;
+            }
+        });
+
+        // Таймер
+        let seconds = 0;
+        const timerDisplay = document.getElementById('timer');
+
+        setInterval(() => {
+            seconds++;
+            timerDisplay.textContent = seconds;
+        }, 1000);
+    </script>
+
+</body>
+</html>
